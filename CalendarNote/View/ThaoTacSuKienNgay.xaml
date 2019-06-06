@@ -1,0 +1,99 @@
+﻿<Window x:Class="CalendarNote.View.ThaoTacSuKienNgay"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CalendarNote.View"
+       mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.FontWeight="Regular"
+             TextElement.FontSize="13"
+             TextOptions.TextFormattingMode="Ideal"
+             TextOptions.TextRenderingMode="Auto"
+             Background="{DynamicResource MaterialDesignPaper}"
+             FontFamily="{DynamicResource MaterialDesignFont}"
+        Title="Calendar Notes" Height="558.609" Width="700"
+        WindowStartupLocation="CenterScreen"
+        MinWidth="600" Icon="/CalendarNote;component/calendarNote.ico">
+    <Grid Margin="40,0,40,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="150"/>
+        </Grid.ColumnDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1.5*"/>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="3*"/>
+            </Grid.RowDefinitions>
+            <DataGrid 
+                Name="dataGirdDSSuKien" 
+                Margin="0,10,0,0"
+                AutoGenerateColumns="False"
+                CanUserDeleteRows="False"
+                CanUserAddRows="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn
+                        Header="Tiêu đề" 
+                        Binding="{Binding TieuDe, Mode=OneWay}"
+                        Width="300"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <TextBox  
+                Grid.Row="1"
+                materialDesign:HintAssist.Hint="Tiêu đề"
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                FontSize="24" 
+                Name="txbTieuDe"
+                IsReadOnly="true"
+                Text="{Binding 
+                SelectedItem.TieuDe, 
+                ElementName=dataGirdDSSuKien, 
+                Mode=OneWay}"/>
+            <Grid Grid.Row="2">
+                <TextBlock Text="Nội dung" />
+                <TextBox
+                    Name="txbNoiDung"
+                    Style="{StaticResource MaterialDesignTextAreaTextBox}"
+                    VerticalAlignment="Stretch"
+                    AcceptsReturn="True"
+                    TextWrapping="Wrap"
+                    VerticalScrollBarVisibility="Auto"
+                    materialDesign:HintAssist.Hint="nội dung công việc"
+                    IsEnabled="{Binding Path=IsChecked, 
+                    ElementName=MaterialDesignTextAreaTextBoxEnabledComboBox}"
+                    Margin="0,28,0,20" 
+                    IsReadOnly="True"
+                    Text="{Binding SelectedItem.NoiDung, ElementName = dataGirdDSSuKien, Mode=OneWay}"/>
+            </Grid>
+        </Grid>
+        <StackPanel Grid.Column="1"
+                    Margin="0,30">
+            <materialDesign:Badged
+                BadgeColorZoneMode="PrimaryDark"
+                HorizontalAlignment="Center"
+                Margin="0,30,0,0">
+                <Button
+                    Name="btnSua"
+                    VerticalAlignment="Center"
+                    Style="{StaticResource MaterialDesignRaisedLightButton}"
+                    Click="Click_btnSua"
+                    Content="Sửa"
+                    Width="120"/>
+            </materialDesign:Badged>
+            <materialDesign:Badged
+                BadgeColorZoneMode="PrimaryDark"
+                HorizontalAlignment="Center"
+                Margin="0,30,0,0">
+                <Button
+                    Name="btnXoa"
+                    VerticalAlignment="Center"
+                    Style="{StaticResource MaterialDesignRaisedLightButton}"
+                    Click="Click_btnXoa"
+                    Content="Xóa"
+                    Width="120"/>
+            </materialDesign:Badged>
+        </StackPanel>
+    </Grid>
+</Window>
